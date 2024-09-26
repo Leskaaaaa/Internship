@@ -46,7 +46,7 @@ public class VacationController {
         Vacation vacation = convertToVacation(vacationDTO);
         String vacationPay = vacationService.calculateVacationPay(vacation);
 
-        return new ResponseEntity<>(vacationPay, HttpStatus.CREATED);
+        return new ResponseEntity<>(vacationPay, HttpStatus.OK);
     }
 
     @ExceptionHandler(VacationNotResponseException.class)

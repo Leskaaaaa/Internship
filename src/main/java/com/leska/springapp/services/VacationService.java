@@ -15,10 +15,10 @@ public class VacationService {
     public String calculateVacationPay(Vacation vacation) {
         String vacationPay;
 
-        if (vacation.getDayOfVacation() == 0) {
-            vacationPay = getVacationPayOfPeriodDay(vacation);
-        } else {
+        if (vacation.getVacationStartDate() == null || vacation.getVacationEndDate() == null) {
             vacationPay = getVacationPay(vacation);
+        } else {
+            vacationPay = getVacationPayOfPeriodDay(vacation);
         }
         return vacationPay;
     }
@@ -42,6 +42,7 @@ public class VacationService {
 
         while (startDate.isBefore(endDate)) {
             if (isWeekends(startDate) || isHoliday(startDate)) {
+                startDate = startDate.plusDays(1);
                 continue;
             }
             workingDay++;
