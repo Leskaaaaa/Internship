@@ -1,5 +1,6 @@
 package com.leska.springapp.services;
 
+import com.leska.springapp.model.Holidays;
 import com.leska.springapp.model.Vacation;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class VacationService {
         int workingDay = 0;
 
         while (startDate.isBefore(endDate)) {
-            if (!isWeekends(startDate) || !isHoliday(startDate)) {
+            if (!isWeekends(startDate) && !isHoliday(startDate)) {
                 workingDay++;
             }
             startDate = startDate.plusDays(1);
@@ -55,10 +56,11 @@ public class VacationService {
     }
 
     private boolean isHoliday(LocalDate date) {
-        List<LocalDate> holidays = List.of(
-                LocalDate.of(date.getYear(), Month.JANUARY, 1)
-                // Add next Holidays
-        );
-        return holidays.contains(date);
+        for (Holidays holiday : Holidays.values()) {
+            if (holiday.getDate(date.getYear()).equals(date)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
