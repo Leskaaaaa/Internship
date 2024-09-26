@@ -1,7 +1,6 @@
 package com.leska.springapp.controller;
 
 import com.leska.springapp.dto.VacationDTO;
-import com.leska.springapp.dto.VacationPayDTO;
 import com.leska.springapp.model.Vacation;
 import com.leska.springapp.services.VacationService;
 import com.leska.springapp.util.VacationErrorResponse;
@@ -30,8 +29,8 @@ public class VacationController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping
-    public ResponseEntity<VacationPayDTO> calculateVacationPay(@RequestBody @Valid VacationDTO vacationDTO,
+    @GetMapping
+    public ResponseEntity<String> calculateVacationPay(@RequestBody @Valid VacationDTO vacationDTO,
                                                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder errors = new StringBuilder();
@@ -45,10 +44,9 @@ public class VacationController {
         }
 
         Vacation vacation = convertToVacation(vacationDTO);
-        String vacationPay = vacationService.getVacationPayOfPeriodDay(vacation);
-        VacationPayDTO response = new VacationPayDTO(vacationPay);
+        String vacationPay = vacationService.calculateVacationPay(vacation);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(vacationPay, HttpStatus.CREATED);
     }
 
     @ExceptionHandler(VacationNotResponseException.class)

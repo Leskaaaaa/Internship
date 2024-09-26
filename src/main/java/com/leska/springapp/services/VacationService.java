@@ -12,18 +12,43 @@ import java.util.List;
 @Service
 public class VacationService {
 
-    public String getVacationPayOfPeriodDay(Vacation vacation) {
+    public String calculateVacationPay(Vacation vacation) {
+        String vacationPay;
+
+        if (vacation.getDayOfVacation() == 0) {
+            vacationPay = getVacationPayOfPeriodDay(vacation);
+        } else {
+            vacationPay = getVacationPay(vacation);
+        }
+        return vacationPay;
+    }
+
+    private String getVacationPay(Vacation vacation) {
+        int vacationDays = vacation.getDayOfVacation();
+
+        double salaryPerDay = (vacation.getSalary() * 12) / 365;
+        return new DecimalFormat("#.##").format(salaryPerDay * vacationDays);
+    }
+
+    private String getVacationPayOfPeriodDay(Vacation vacation) {
+        int vacationDays = getWorkingDays(vacation.getVacationStartDate(), vacation.getVacationEndDate());
+
+        double salaryPerDay = (vacation.getSalary() * 12) / 365;
+        return new DecimalFormat("#.##").format(salaryPerDay * vacationDays);
+    }
+
+    private int getWorkingDays(LocalDate startDate, LocalDate endDate) {
         int workingDay = 0;
 
-        for (LocalDate date = vacation.getVacationStartDate(); date.isBefore(vacation.getVacationEndDate()); date = date.plusDays(1)) {
-            if (isWeekends(date) || isHoliday(date)) {
+        while (startDate.isBefore(endDate)) {
+            if (isWeekends(startDate) || isHoliday(startDate)) {
                 continue;
             }
             workingDay++;
+            startDate = startDate.plusDays(1);
         }
 
-        double salaryADay = (vacation.getSalary() * 12) / 365;
-        return new DecimalFormat("#.##").format(salaryADay * workingDay);
+        return workingDay;
     }
 
     private boolean isWeekends(LocalDate date) {
