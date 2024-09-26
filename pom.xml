@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.leska</groupId>
-	<artifactId>springapp</artifactId>
+	<artifactId>SpringAppIntership</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SpringBootApp</name>
 	<description>Demo project for Spring Boot</description>

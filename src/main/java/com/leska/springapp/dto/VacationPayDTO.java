@@ -1,4 +1,4 @@
-package com.leska.springapp.DTO;
+package com.leska.springapp.dto;
 
 import java.text.NumberFormat;
 import java.text.ParseException;

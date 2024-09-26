@@ -1,7 +1,7 @@
 package com.leska.springapp.controller;
 
-import com.leska.springapp.DTO.VacationDTO;
-import com.leska.springapp.DTO.VacationPayDTO;
+import com.leska.springapp.dto.VacationDTO;
+import com.leska.springapp.dto.VacationPayDTO;
 import com.leska.springapp.model.Vacation;
 import com.leska.springapp.services.VacationService;
 import com.leska.springapp.util.VacationErrorResponse;
@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
 
 @RestController

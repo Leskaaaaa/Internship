@@ -1,4 +1,4 @@
-package com.leska.springapp.DTO;
+package com.leska.springapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Min;
