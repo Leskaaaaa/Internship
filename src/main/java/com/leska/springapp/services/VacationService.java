@@ -41,11 +41,9 @@ public class VacationService {
         int workingDay = 0;
 
         while (startDate.isBefore(endDate)) {
-            if (isWeekends(startDate) || isHoliday(startDate)) {
-                startDate = startDate.plusDays(1);
-                continue;
+            if (!isWeekends(startDate) || !isHoliday(startDate)) {
+                workingDay++;
             }
-            workingDay++;
             startDate = startDate.plusDays(1);
         }
 
